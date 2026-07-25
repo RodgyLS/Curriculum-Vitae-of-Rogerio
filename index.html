@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rogério Lopes dos Santos — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F1F2ED;
+    --paper-2: #E8EAE3;
+    --ink: #16232B;
+    --ink-soft: #445056;
+    --teal: #2F6F6B;
+    --teal-dim: #DCE7E5;
+    --rust: #B5651D;
+    --line: #CDD3CA;
+    --display: 'Source Serif 4', serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--body); line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:820px; margin:0 auto; padding:0 28px;}
+
+  .topnav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(241,242,237,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .topnav .wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 28px;}
+  .brand{font-family:var(--mono); font-size:13px; letter-spacing:0.02em; color:var(--ink-soft); text-decoration:none;}
+  .navlinks{display:flex; gap:18px; font-family:var(--mono); font-size:12px;}
+  .navlinks a{color:var(--ink-soft); text-decoration:none;}
+  .navlinks a:hover{color:var(--teal);}
+
+  /* --- Hero --- */
+  .hero{padding:64px 0 40px; border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--mono); font-size:12px; color:var(--teal); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:14px;}
+  h1.name{font-family:var(--display); font-weight:700; font-size:clamp(30px,5vw,44px); margin:0 0 10px;}
+  p.hero-tagline{font-size:17px; color:var(--ink-soft); max-width:600px; margin:0 0 24px;}
+  .hero-tags{display:flex; flex-wrap:wrap; gap:8px;}
+
+  section.block{padding:40px 0; border-bottom:1px solid var(--line);}
+  h2.block-title{
+    font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--teal); margin:0 0 20px;
+  }
+  .profile-text{max-width:660px; font-size:16px;}
+
+  /* --- Techniques --- */
+  .tech-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;}
+  .tech-item{border-left:2px solid var(--teal); padding-left:14px;}
+  .tech-item .tname{font-weight:600; font-size:14.5px; margin:0 0 3px;}
+  .tech-item .tdesc{font-size:13px; color:var(--ink-soft); margin:0;}
+
+  /* --- Experience --- */
+  .entry{display:grid; grid-template-columns:150px 1fr; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);}
+  .entry:last-child{border-bottom:none;}
+  .entry .when{font-family:var(--mono); font-size:12px; color:var(--ink-soft); padding-top:2px;}
+  .entry .what h3{margin:0 0 4px; font-size:16px; font-weight:600;}
+  .entry .what .org{font-size:13px; color:var(--ink-soft); font-style:italic; margin-bottom:8px;}
+  .entry .what ul{margin:0; padding-left:18px; font-size:14.5px;}
+  .entry .what li{margin-bottom:4px;}
+
+  /* --- Publications --- */
+  .pub{padding:18px 0; border-bottom:1px solid var(--line);}
+  .pub:last-child{border-bottom:none;}
+  .pub .venue{font-family:var(--mono); font-size:11px; color:var(--teal); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:4px;}
+  .pub .cite{font-size:14px; font-weight:600; margin:0 0 6px;}
+  .pub .summary{font-size:14px; color:var(--ink-soft); margin:0;}
+
+  .tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag-chip{
+    font-family:var(--mono); font-size:12px; background:var(--teal-dim); color:var(--teal);
+    padding:5px 10px; border-radius:2px;
+  }
+
+  /* --- Lens section --- */
+  .lens-intro{padding:48px 0 8px;}
+  .lens-intro p{font-family:var(--mono); font-size:13px; color:var(--ink-soft); margin:0 0 20px;}
+  .lens-cards{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-bottom:8px;}
+  .lens-card{
+    text-align:left; border:1px solid var(--line); background:var(--paper);
+    padding:18px 16px; border-radius:2px; cursor:pointer; font-family:var(--body);
+    transition:border-color .15s ease;
+  }
+  .lens-card:hover{border-color:var(--teal);}
+  .lens-card.active{border-color:var(--ink); background:var(--ink); color:var(--paper);}
+  .lens-card.active .lens-card-desc{color:var(--paper-2);}
+  .lens-card-name{font-weight:600; font-size:15px; margin:0 0 4px;}
+  .lens-card-desc{font-size:12.5px; color:var(--ink-soft); margin:0;}
+
+  #lensDetail{padding:36px 0 90px; display:none;}
+  #lensDetail.active{display:block;}
+  .lens-header{border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:28px;}
+  .lens-label{font-family:var(--mono); font-size:12px; color:var(--teal); text-transform:uppercase; letter-spacing:0.06em;}
+  h2.lens-title{font-family:var(--display); font-size:clamp(24px,4vw,32px); margin:8px 0 8px;}
+  .lens-tagline{color:var(--ink-soft); max-width:600px; font-size:15px;}
+
+  footer{border-top:1px solid var(--line); padding:28px 0; font-family:var(--mono); font-size:12px; color:var(--ink-soft);}
+
+  @media (max-width:640px){
+    .entry{grid-template-columns:1fr;}
+    .entry .when{padding-top:0;}
+    .lens-cards{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="#top" class="brand">RLDS</a>
+    <div class="navlinks">
+      <a href="#techniques">Techniques</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#lenses">Applications</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+  <div class="hero">
+    <div class="eyebrow">Scientist</div>
+    <h1 class="name">Rogério Lopes dos Santos, PhD</h1>
+    <p class="hero-tagline" id="heroTagline"></p>
+    <div class="hero-tags tags" id="heroTags"></div>
+  </div>
+
+  <section class="block">
+    <h2 class="block-title">Profile</h2>
+    <p class="profile-text" id="profileText"></p>
+  </section>
+
+  <section class="block" id="techniques">
+    <h2 class="block-title">Key techniques &amp; methods</h2>
+    <div class="tech-grid" id="techGrid"></div>
+  </section>
+
+  <section class="block" id="experience">
+    <h2 class="block-title">Experience</h2>
+    <div id="expList"></div>
+  </section>
+
+  <section class="block" id="publications">
+    <h2 class="block-title">Publications</h2>
+    <div id="pubList"></div>
+  </section>
+
+  <section class="lens-intro" id="lenses">
+    <p>See how this research applies to&hellip;</p>
+    <div class="lens-cards" id="lensCards"></div>
+  </section>
+</div>
+
+<div id="lensDetail" class="wrap"></div>
+
+<footer>
+  <div class="wrap">London · lopessantos.rogerio@gmail.com · LinkedIn: Rogério Lopes dos Santos</div>
+</footer>
+
+<script>
+/* ---------------- CORE: the Scientist identity, always visible ---------------- */
+const SCIENTIST = {
+  tagline: "PhD biophysicist reconstructing how cells change shape — actin, membranes, and synthetic biomimetic systems.",
+  tags: ["Membrane biophysics", "Cytoskeleton mechanics", "Microfluidics", "6 peer-reviewed publications"],
+  profile: "PhD biophysicist specialising in cell mechanics and membrane biophysics. My doctoral work reconstructed branched actin networks on artificial cell membranes (giant unilamellar vesicles, or GUVs) to study how cells generate and control shape change — the same physical process underlying cell motility and division. I co-developed a microfluidic platform to run these experiments at scale, and separately investigated the role of a target protein in red blood cell maturation during my Master's research.",
+  techniques: [
+    { name: "GUV electroformation", desc: "Building cell-sized artificial membrane spheres from defined lipid mixtures" },
+    { name: "Microfluidics / lab-on-a-chip", desc: "Designing and fabricating PDMS microfluidic devices (soft lithography) to run many experiments in parallel" },
+    { name: "Fluorescence microscopy", desc: "Epifluorescence and confocal-like imaging to track membrane and protein network dynamics over time" },
+    { name: "Protein reconstitution", desc: "Working with purified actin, Arp2/3, profilin and capping protein to rebuild cytoskeletal networks outside a cell" },
+    { name: "Quantitative image analysis", desc: "Fiji/ImageJ and MATLAB-based quantification of shape, thickness and fluorescence data" },
+    { name: "Statistical analysis", desc: "R-based statistical testing across experimental populations" }
+  ],
+  experience: [
+    { when: "Feb 2019 – Nov 2023", title: "Research Associate / PhD Student", org: "Laboratory of Analysis, Modelling and Materials for Biology and Environment, Université Paris-Saclay",
+      bullets: [
+        "Reconstructed branched Arp2/3-nucleated actin networks on giant unilamellar vesicles (GUVs) to study actin-induced membrane deformation, including on phase-separated membranes with distinct lipid domains",
+        "Co-developed a microfluidic platform enabling higher-throughput, statistically robust GUV-based assays",
+        "Authored or co-authored 6 peer-reviewed publications and a PhD thesis; presented at national and international conferences"
+      ]},
+    { when: "May 2018 – Jan 2019", title: "Research Assistant", org: "Institut Curie",
+      bullets: ["Designed and optimised experimental methods for reproducibility of actin-membrane assays", "Co-authored a peer-reviewed article, later cited more than 20 times"]},
+    { when: "Apr 2016 – Jul 2017", title: "Research Assistant — Internship", org: "Laboratory of Normal-Pathological Lymphocytes and Cancers",
+      bullets: ["Investigated the role of a target protein (GPX4) in red blood cell maturation and enucleation", "Secured €10,000 in competitive research funding", "Co-authored a peer-reviewed article in Blood Advances (2020)"]}
+  ],
+  publications: [
+    { venue: "Small Science, 2025", cite: "Huang, Lopes Dos Santos, et al. — A Microfluidic Platform for Actin-Based Membrane Remodeling Reveals the Stabilizing Role of Branched Actin Networks on Lipid Microdomains.",
+      summary: "Built a microfluidic chip that traps and monitors dozens of artificial cell membranes at once, showing that a branching cytoskeleton network helps keep distinct membrane regions from merging back together." },
+    { venue: "ACS Synthetic Biology, 2023 (first author)", cite: "Lopes dos Santos, Malo, Campillo — Spatial Control of Arp2/3-Induced Actin Polymerization on Phase-Separated Giant Unilamellar Vesicles.",
+      summary: "Designed a system that switches on cytoskeleton growth specifically on one membrane region or another, showing how a membrane's own composition can direct where and how it gets reshaped." },
+    { venue: "Biochemical Society Transactions, 2022 (review, first author)", cite: "Lopes dos Santos, Campillo — Studying actin-induced cell shape changes using Giant Unilamellar Vesicles and reconstituted actin networks.",
+      summary: "Reviewed a decade of research using artificial cell membranes to understand how the internal cell scaffolding reshapes cells, mapping out the field's main experimental approaches." },
+    { venue: "Blood Advances, 2020 (Master's research)", cite: "Ouled-Haddou, Messaoudi, ..., Lopes dos Santos, et al. — A new role of glutathione peroxidase 4 during human erythroblast enucleation.",
+      summary: "Showed that an antioxidant enzyme plays a surprising, separate role in helping red blood cells expel their nucleus during maturation, beyond its usual protective function." },
+    { venue: "Biology of the Cell, 2021", cite: "Allard, Lopes dos Santos, Campillo — Remodelling of Membrane Tubules by the Actin Cytoskeleton.",
+      summary: "A review covering how the cell's internal scaffolding reshapes thin membrane tubes, a process involved in transporting material around inside cells." },
+    { venue: "Soft Matter, 2019", cite: "Kusters, Simon, Lopes Dos Santos, Caorsi, Wu, Joanny, Sens, Sykes — Actin shells control buckling and wrinkling of biomembranes.",
+      summary: "Showed that a surrounding cytoskeleton network determines whether a shrinking artificial cell membrane wrinkles finely or buckles into larger folds, depending on the network's thickness." }
+  ]
+};
+
+/* ---------------- LENSES: expandable "how this applies to" sections ---------------- */
+const LENSES = [
+  { id: "clinical", label: "Clinical", icon: "🩺", desc: "Clinical research & translational science",
+    tagline: "GCP-certified, with hands-on clinical trial data experience.",
+    profile: "PhD-trained biophysicist transitioning into clinical research, combining rigorous scientific training with hands-on experience in source data verification, regulatory documentation, and Good Clinical Practice. GCP certified, with direct exposure to clinical trial data verification during an internship at a University Hospital Clinical Research Centre.",
+    experience: [
+      { when: "Apr 2014", title: "Clinical Research Assistant — Internship", org: "Clinical Research Centre, University Hospital of Amiens",
+        bullets: ["Performed Source Data Verification (SDV), cross-checking CRF data against patient clinical notes", "Collaborated directly with a biostatistician to interpret and validate clinical trial results", "Authored a manuscript on the diagnostic potential of biomarkers in early cancer detection"]},
+      { when: "2024", title: "Certification", org: "NIHR", bullets: ["Good Clinical Practice (GCP) certification"]}
+    ],
+    tagsList: ["GCP", "SDV / CRF review", "Protocol adherence", "Regulatory documentation", "Data integrity"]
+  },
+  { id: "policy", label: "Policy", icon: "🏛", desc: "Science policy & governance",
+    tagline: "Research rigour and organisational governance experience applied to policy work.",
+    profile: "PhD biophysicist with experience translating complex research for varied audiences, combined with hands-on governance and organisational experience. Bringing an evidence-based, structured approach to science policy work, informed by years of independent research management, cross-institutional coordination, and public communication of scientific findings.",
+    experience: [
+      { when: "Feb 2019 – Nov 2023", title: "Research Associate / PhD Student", org: "Université Paris-Saclay",
+        bullets: ["Coordinated with collaborators across institutions, managing timelines and deliverables", "Presented complex scientific findings to specialist and public audiences", "Authored and reviewed peer-reviewed publications for accuracy and clarity"]}
+    ],
+    tagsList: ["Science communication", "Governance", "Cross-institutional coordination", "Evidence synthesis"]
+  },
+  { id: "consultancy", label: "Consultancy", icon: "◆", desc: "Life sciences & biotech strategy",
+    tagline: "Structured, evidence-based problem solving for the life sciences sector.",
+    profile: "PhD biophysicist bringing structured, evidence-based problem solving to life sciences and biotech strategy work. Experience designing and running independent, multi-year research programmes, translating highly technical findings for non-specialist audiences, and working across institutional and disciplinary boundaries.",
+    experience: [
+      { when: "Feb 2019 – Nov 2023", title: "Research Associate / PhD Student", org: "Université Paris-Saclay",
+        bullets: ["Independently scoped and delivered a multi-year research programme from open question to peer-reviewed publication", "Communicated complex technical findings to both specialist and general audiences", "Coordinated across institutions and collaborators to keep a technical project on track"]}
+    ],
+    tagsList: ["Structured problem-solving", "Technical communication", "Cross-disciplinary coordination", "Evidence-based analysis"]
+  }
+];
+
+/* ---------------- RENDER: core Scientist section ---------------- */
+document.getElementById('heroTagline').textContent = SCIENTIST.tagline;
+document.getElementById('heroTags').innerHTML = SCIENTIST.tags.map(t => `<span class="tag-chip">${t}</span>`).join('');
+document.getElementById('profileText').textContent = SCIENTIST.profile;
+document.getElementById('techGrid').innerHTML = SCIENTIST.techniques.map(t =>
+  `<div class="tech-item"><p class="tname">${t.name}</p><p class="tdesc">${t.desc}</p></div>`
+).join('');
+document.getElementById('expList').innerHTML = SCIENTIST.experience.map(e => `
+  <div class="entry">
+    <div class="when">${e.when}</div>
+    <div class="what">
+      <h3>${e.title}</h3>
+      <div class="org">${e.org}</div>
+      <ul>${e.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+    </div>
+  </div>`).join('');
+document.getElementById('pubList').innerHTML = SCIENTIST.publications.map(p => `
+  <div class="pub">
+    <div class="venue">${p.venue}</div>
+    <p class="cite">${p.cite}</p>
+    <p class="summary">${p.summary}</p>
+  </div>`).join('');
+
+/* ---------------- RENDER: lens cards + detail sections ---------------- */
+const lensCardsEl = document.getElementById('lensCards');
+const lensDetailEl = document.getElementById('lensDetail');
+
+LENSES.forEach(l => {
+  const card = document.createElement('button');
+  card.className = 'lens-card';
+  card.dataset.lens = l.id;
+  card.innerHTML = `<p class="lens-card-name">${l.icon}&nbsp; ${l.label}</p><p class="lens-card-desc">${l.desc}</p>`;
+  card.addEventListener('click', () => showLens(l.id));
+  lensCardsEl.appendChild(card);
+});
+
+function showLens(id) {
+  const l = LENSES.find(x => x.id === id);
+  document.querySelectorAll('.lens-card').forEach(c => c.classList.toggle('active', c.dataset.lens === id));
+
+  const expHtml = l.experience.map(e => `
+    <div class="entry">
+      <div class="when">${e.when}</div>
+      <div class="what">
+        <h3>${e.title}</h3>
+        <div class="org">${e.org}</div>
+        <ul>${e.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+      </div>
+    </div>`).join('');
+
+  lensDetailEl.innerHTML = `
+    <div class="lens-header">
+      <div class="lens-label">${l.desc}</div>
+      <h2 class="lens-title">${l.label}</h2>
+      <p class="lens-tagline">${l.tagline}</p>
+    </div>
+    <section class="block" style="border-bottom:1px solid var(--line);">
+      <h2 class="block-title">Profile</h2>
+      <p class="profile-text">${l.profile}</p>
+    </section>
+    <section class="block" style="border-bottom:1px solid var(--line);">
+      <h2 class="block-title">Relevant experience</h2>
+      ${expHtml}
+    </section>
+    <section class="block" style="border-bottom:none;">
+      <h2 class="block-title">Skills</h2>
+      <div class="tags">${l.tagsList.map(t => `<span class="tag-chip">${t}</span>`).join('')}</div>
+    </section>
+  `;
+  lensDetailEl.classList.add('active');
+  lensDetailEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
